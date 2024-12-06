@@ -6,8 +6,7 @@ mu=1.327e11; %Gravitational parameter for Sun
 maxDays=3000; % Number of days to follow the spaceraft
 rsc=zeros(maxDays,3); % Position vector array for spacecraft
 vsc=zeros(maxDays,3); % Velocity vector array for spacecraft
-finalDate=initialDate+days(maxDays); %date when sc stops appearing in
-simulation
+finalDate=initialDate+days(maxDays); %date when sc stops appearing in simulation
 launchDay=1; % # of days to launch Not used in this function
 tinit=datetime(initialDate); %date format
 %% Stay on Earth until day of launch
