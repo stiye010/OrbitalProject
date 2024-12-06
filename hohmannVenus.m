@@ -9,8 +9,7 @@ maxDays=146; % Number of days to follow the spaceraft = t12
 % for Earth-Venus transfer
 rsc=zeros(maxDays,3); % Position vector array for spacecraft
 vsc=zeros(maxDays,3); % Velocity vector array for spacecraft
-finalDate=initialDate+days(maxDays); %date when sc stops appearing in
-simulation
+finalDate=initialDate+days(maxDays); %date when sc stops appearing in simulation
 launchDay=12; % # of days to launch from Start Date
 tinit=datetime(initialDate); %initial date in date format
 %% Stay on Earth until day of launch use Curtis function

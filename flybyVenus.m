@@ -10,8 +10,7 @@ maxDays=300; % Number of days to follow the spaceraft = t12
 fbday1 = 105;
 rsc=zeros(maxDays,3); % Position vector array for spacecraft
 vsc=zeros(maxDays,3); % Velocity vector array for spacecraft
-finalDate=initialDate+days(maxDays); %date when sc stops appearing in
-simulation
+finalDate=initialDate+days(maxDays); %date when sc stops appearing in simulation
 launchDay=15; % # of days to launch from Start Date
 tinit=datetime(initialDate); % initial time as datetime variable type
 %% Stay on Earth until day of launch
