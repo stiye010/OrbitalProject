@@ -3,7 +3,7 @@
 function [rsc,vsc,finalDate] = EuropaClipper(initialDate)
 %function [rsc,vsc,finalDate] = spacecraft(initialDate)
 % Simulates a Hohmann transfer to Mars,flybay of Mars, flyby of Earth
-% Set initial date in app to 18-Oct-2026
+% Set initial date in app to 10-Nov-2026
 %According to the theorertical calculations, launchDay will be 12.
 %% Initialize
 mu=1.327e11; %Gravitational parameter for Sun
