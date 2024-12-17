@@ -1,13 +1,16 @@
-function [rsc,vsc,finalDate] = hohmannVenus(initialDate)
+%% Europa-Clipper Copy
+% Launch, Flyby Mars, Flyby Earth
+function [rsc,vsc,finalDate] = EuropaClipperCopy(initialDate)
 %function [rsc,vsc,finalDate] = spacecraft(initialDate)
-% Simulates a Hohmann transfer to Venus
-% Set initial date in app to 12/20/2024
+% Simulates a Hohmann transfer to Mars,flybay of Mars, flyby of Earth
+% Set initial date in app to 10-Nov-2026
 %According to the theorertical calculations, launchDay will be 12.
 %% Initialize
 mu=1.327e11; %Gravitational parameter for Sun
-maxDays=300; % Number of days to follow the spaceraft = t12
-% for Earth-Venus transfer
-fbday1 = 105;
+maxDays=4000; % Number of days to follow the spaceraft = t12
+% for Earth-Mars transfer
+fbday1 = 157;
+fbday2 = 803;
 rsc=zeros(maxDays,3); % Position vector array for spacecraft
 vsc=zeros(maxDays,3); % Velocity vector array for spacecraft
 finalDate=initialDate+days(maxDays); %date when sc stops appearing in simulation
@@ -28,20 +31,32 @@ end
 %% Launch Maneuver
 t=tinit+days(launchDay);
 [y,m,d]=ymd(t);
-[coe, R, V, jd] =planet_elements_and_sv_coplanar ...
-(1.327e11, 3, y, m, d, 0, 0, 0);
-Vsc = V - 4*V/norm(V); %Delta v is -4km/s
+[~, R, V, ~] =planet_elements_and_sv_coplanar ...
+(1.327e11, 3, y, m, d, 0, 0, 0); %Earth on launch day
+
+Vsc = V + 6*V/norm(V);
 % Calculate the orbital elements for spacecraft
 [h,a,e,w,E0]=scElements(R,Vsc);
 % propagate the new orbit for spacecraft
 [rsc,vsc]=propagate(h,a,e,w,E0,launchDay+1,fbday1,rsc,vsc);
+
 % Load flyby data from app
-load venusFB1.mat
+load MarsFBforEC1.mat
 % Calculate the velocity after the flyby
-[Vsc1,DeltaMin]=flyby(Vp1,Vsc1,1.35e4,3.2e5,6.1e3,0);
+[Vsc1,DeltaMin]=flyby(Vp1,Vsc1,5.8e+03,42828,3396,0);
 DeltaMin %Can output Deltamin to keep the aiming radius above this value
 %Calculate the orbital elements for the spacecraft after the flyby
 [h,a,e,w,E0]=scElements(R1,Vsc1);
 %propagate orbit to end
-[rsc,vsc]=propagate(h,a,e,w,E0,fbday1+1,maxDays,rsc,vsc);
-%}
+[rsc,vsc]=propagate(h,a,e,w,E0,fbday1+1,fbday2,rsc,vsc);
+
+load ECEarthFB.mat
+% Calculate the velocity after the flyby
+[Vsc2,DeltaMin]=flyby(Vp2,Vsc2,13500,398600,6378,1);
+DeltaMin %Can output Deltamin to keep the aiming radius above this value
+%Calculate the orbital elements for the spacecraft after the flyby
+[h,a,e,w,E0]=scElements(R2,Vsc2);
+%propagate orbit to end
+[rsc,vsc]=propagate(h,a,e,w,E0,fbday2+1,maxDays,rsc,vsc);
+
+

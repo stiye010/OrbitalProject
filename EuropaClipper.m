@@ -7,7 +7,7 @@ function [rsc,vsc,finalDate] = EuropaClipper(initialDate)
 %According to the theorertical calculations, launchDay will be 12.
 %% Initialize
 mu=1.327e11; %Gravitational parameter for Sun
-maxDays=4000; % Number of days to follow the spaceraft = t12
+maxDays=2000; % Number of days to follow the spaceraft = t12
 % for Earth-Mars transfer
 fbday1 = 157;
 fbday2 = 1097;
@@ -46,6 +46,7 @@ load MarsFBforEC1.mat
 [Vsc1,DeltaMin]=flyby(Vp1,Vsc1,5.8e+03,42828,3396,1);
 DeltaMin %Can output Deltamin to keep the aiming radius above this value
 %Calculate the orbital elements for the spacecraft after the flyby
+Vsc1
 [h,a,e,w,E0]=scElements(R1,Vsc1);
 %propagate orbit to end
 [rsc,vsc]=propagate(h,a,e,w,E0,fbday1+1,fbday2,rsc,vsc);
@@ -55,6 +56,7 @@ load EarthFBforEC1.mat
 [Vsc2,DeltaMin]=flyby(Vp2,Vsc2,13500,398600,6378,0);
 DeltaMin %Can output Deltamin to keep the aiming radius above this value
 %Calculate the orbital elements for the spacecraft after the flyby
+Vsc2 
 [h,a,e,w,E0]=scElements(R2,Vsc2);
 %propagate orbit to end
 [rsc,vsc]=propagate(h,a,e,w,E0,fbday2+1,maxDays,rsc,vsc);

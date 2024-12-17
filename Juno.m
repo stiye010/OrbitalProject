@@ -67,6 +67,7 @@ load JunoFB.mat
 [Vsc1,DeltaMin]=flyby(Vp1,Vsc1,8800,398600,6378,0);
 DeltaMin %Can output Deltamin to keep the aiming radius above this value
 %Calculate the orbital elements for the spacecraft after the flyby
+Vsc1
 [h,a,e,w,E0]=scElements(R1,Vsc1);
 %propagate orbit to end
 [rsc,vsc]=propagate(h,a,e,w,E0,fbday1+1,maxDays,rsc,vsc);
